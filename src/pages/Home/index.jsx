@@ -19,7 +19,7 @@ function Home() {
   //   },
   // ];
 
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]) //Devo usar a essa forma para dizer que uma variável mudou o status
 
   async function getUsers() {
     const usersFromDB = await api.get("/usuarios");
