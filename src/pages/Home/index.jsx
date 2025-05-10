@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState} from 'react'
 import "./style.css";
 import Trash from "../../assets/trash-icon.svg";
 import api from "../../services/api";
@@ -19,11 +19,12 @@ function Home() {
   //   },
   // ];
 
-  let users = []
+  const [users, setUsers] = useState([])
 
   async function getUsers() {
-    users = await api.get("/usuarios");
-    console.log('Response: '+response.data);
+    const usersFromDB = await api.get("/usuarios");
+    setUsers(usersFromDB.data)
+    console.log('Response: '+ users);
   }
 
   useEffect(() => {
@@ -40,12 +41,12 @@ function Home() {
           <input placeholder="E-mail" name="email" type="email" />
           <button type="button">Cadastrar</button>
         </form>
-        {users.map((users) => (
-          <div key={users.id} className="card">
+        {users.map((user) => (
+          <div key={user.id} className="card">
             <div>
-              <p>Nome: {users.name}</p>
-              <p>Idade: {users.age}</p>
-              <p>Email: {users.email}</p>
+              <p>Nome: {user.name}</p>
+              <p>Idade: {user.age}</p>
+              <p>Email: {user.email}</p>
               <button>
                 <img src={Trash} alt="" />
               </button>
